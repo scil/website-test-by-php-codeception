@@ -1,0 +1,10 @@
+/vendor
+/.idea
+/.vscode
+/.vagrant
+.env
+.env.backup
+
+/tests/_support/
+/tests/_output/
+/tests/_data/
