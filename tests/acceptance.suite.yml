@@ -7,14 +7,50 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
+        #- PhpBrowser
+        - WebDriver
         - \Helper\Acceptance
+        
     config:
         PhpBrowser:
-            url: https://www.aerozone.com.au
-            proxy: "%PROXY%"
+            url: "%URL%"
+            proxy: "http://%HTTP_PROXY%:%HTTP_PROXY_PORT%"
         WebDriver:
-            url: https://www.aerozone.com.au
-            proxy: http://localhost:60383
+            url: "%URL%"
+            
+            # Codeception not support full proxy json object, e.g. noProxy not supported 
+            # see https://github.com/Codeception/Codeception/issues/3837
+            # source code: vendor\codeception\module-webdriver\src\Codeception\Module\WebDriver.php   getProxy()
+            #
+            # old style of proxy json object
+            # https://github.com/mozilla/geckodriver/issues/1022
+            # https://github.com/Codeception/Codeception/issues/3837
+            # https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#proxy-json-object
+            # https://packagist.org/packages/teamneusta/codeception-docker-chrome
+            #
+            http_proxy: "%HTTP_PROXY%"
+            http_proxy_port: "%HTTP_PROXY_PORT%"
+            ssl_proxy: "%HTTP_PROXY%"
+            ssl_proxy_port: "%HTTP_PROXY_PORT%"
+            
             browser: 'chrome'
+            port: 44445
+
     step_decorators: ~        
+  
+
+env:
+    chrome:
+        config:
+          WebDriver:
+            browser: 'chrome'
+            
+            # https://sites.google.com/a/chromium.org/chromedriver/capabilities
+            capabilities:
+                
+              "goog:chromeOptions": 
+                  # binary: "/usr/bin/google-chrome"
+                  # args: ["--headless", "--disable-gpu"]
+                  args:
+#                    - "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36 SimaTerminal/567"
+
