@@ -1,3 +1,10 @@
+# feature
+
+- acceptance.suite.yml is ready for testing on firefox and chrome
+- use .env file
+- http proxy can be set in .env ( used for http_proxy and ssl_proxy, the latter is for https)
+
+
 Env
 ===========
 
